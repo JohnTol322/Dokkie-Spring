@@ -1,0 +1,13 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  spring-mysql:
+    container_name: spring-mysql
+    image: mariadb:10.1
+    hostname: spring_mysql
+    ports:
+      - "8716:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: keepitsimplestupid
+    volumes:
+      - ./mysql/initialize.sql:/docker-entrypoint-initdb.d/initialize.sql
+
