@@ -28,8 +28,8 @@ public class Event {
     private List<Payment> payments;
 
     private String description;
-    private Date createdOn;
-    private boolean active;
+    private Date createdOn = new Date();
+    private boolean active = true;
 
     public void setId(Long id) {
         this.id = id;
