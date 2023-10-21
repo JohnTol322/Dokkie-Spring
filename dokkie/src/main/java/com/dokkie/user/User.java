@@ -16,8 +16,7 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Event> events;
 
-    @OneToMany
-    @JoinColumn(name = "user_id")
+    @ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "participants")
     private List<Event> participations;
 
     private String username;
