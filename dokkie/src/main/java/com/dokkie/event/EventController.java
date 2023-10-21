@@ -15,7 +15,7 @@ public class EventController {
     }
 
     @PostMapping
-    public EventDTO createEventAction(@RequestBody EventDTO event) {
+    public EventDTO createEventAction(@RequestBody EventCreationDTO event) {
         return this.eventService.createEvent(event);
     }
 

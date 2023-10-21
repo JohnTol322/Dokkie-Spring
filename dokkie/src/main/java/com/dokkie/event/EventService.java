@@ -20,10 +20,13 @@ public class EventService {
         this.userRepository = userRepository;
     }
 
-    public EventDTO createEvent(EventDTO eventDTO) {
-
+    public EventDTO createEvent(EventCreationDTO eventDTO) {
         Event event = new Event();
-        User user = this.userRepository.findById(eventDTO.user().id()).orElse(null);
+        User user = this.userRepository.findById(eventDTO.user()).orElse(null);
+        eventDTO.participants().forEach(id -> {
+            Optional<User> result = this.userRepository.findById(id);
+            result.ifPresent(event::addParticipant);
+        });
         event.setDescription(eventDTO.description());
         event.setUser(user);
 

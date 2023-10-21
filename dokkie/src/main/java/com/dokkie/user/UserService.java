@@ -16,7 +16,11 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User createUser(User user) {
+    public User createUser(UserCreationDTO userDTO) {
+        User user = new User();
+        user.setUsername(userDTO.username());
+        user.setPassword(userDTO.password());
+
         return this.userRepository.save(user);
     }
 

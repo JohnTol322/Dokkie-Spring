@@ -15,7 +15,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUserAction(@RequestBody User user) {
+    public User createUserAction(@RequestBody UserCreationDTO user) {
         return this.userService.createUser(user);
     }
 
