@@ -1,7 +1,6 @@
 package com.dokkie.backend.user;
 
 import com.dokkie.backend.event.Event;
-import com.dokkie.backend.participant.Participant;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -18,7 +17,7 @@ public class User {
 
     @OneToMany
     @JoinColumn(name = "user_id")
-    private List<Participant> participants;
+    private List<Event> participations;
 
     private String username;
     private String password;
@@ -44,18 +43,18 @@ public class User {
     public void removeEvent(Event event) {
         this.events.remove(event);
     }
-    public List<Participant> getParticipants() {
-        return participants;
+    public List<Event> getParticipations() {
+        return participations;
     }
 
-    public void addParticipant(Participant participant) {
-        if (!this.participants.contains(participant)) {
-            this.participants.add(participant);
+    public void addParticipations(Event participation) {
+        if (!this.participations.contains(participation)) {
+            this.participations.add(participation);
         }
     }
 
-    public void removeParticipant(Participant participant) {
-        this.participants.remove(participant);
+    public void removeParticipation(Event participation) {
+        this.participations.remove(participation);
     }
 
     public String getUsername() {

@@ -1,6 +1,5 @@
 package com.dokkie.backend.event;
 
-import com.dokkie.backend.participant.Participant;
 import com.dokkie.backend.payment.Payment;
 import com.dokkie.backend.user.User;
 import jakarta.persistence.*;
@@ -19,9 +18,11 @@ public class Event {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
-    @JoinColumn(name = "event_id")
-    private List<Participant> participants;
+    @ManyToMany
+    @JoinTable(name = "participant",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> participants;
 
     @OneToMany
     @JoinColumn(name = "event_id")
@@ -47,17 +48,17 @@ public class Event {
         this.user = user;
     }
 
-    public List<Participant> getParticipants() {
+    public List<User> getParticipants() {
         return participants;
     }
 
-    public void addParticipant(Participant participant) {
+    public void addParticipant(User participant) {
         if (!this.participants.contains(participant)) {
             this.participants.add(participant);
         }
     }
 
-    public void removeParticipant(Participant participant) {
+    public void removeParticipant(User participant) {
         this.participants.remove(participant);
     }
 

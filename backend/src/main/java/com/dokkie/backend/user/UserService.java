@@ -1,8 +1,6 @@
 package com.dokkie.backend.user;
 
 import com.dokkie.backend.event.EventDTO;
-import com.dokkie.backend.participant.Participant;
-import com.dokkie.backend.participant.dto.ParticipantDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -37,21 +35,13 @@ public class UserService {
     }
 
     public static UserDTO convertToDTO(User user) {
-        List<ParticipantDTO> participantDTOs = user.getParticipants().stream()
-                .map(participant -> new ParticipantDTO(participant.getId(), null, new EventDTO(
-                        participant.getEvent().getId(),
-                        participant.getEvent().getDescription(),
-                        participant.getEvent().getCreatedOn(),
-                        null,
-                        null
-                )
-                ))
+        List<EventDTO> participationDTOs = user.getParticipations().stream()
+                .map(participation -> new EventDTO(participation.getId(), participation.getDescription(), participation.getCreatedOn(), null, null))
                 .toList();
-
         List<EventDTO> eventDTOs = user.getEvents().stream()
                 .map(event -> new EventDTO(event.getId(), event.getDescription(), event.getCreatedOn(), null, null))
                 .toList();
 
-        return new UserDTO(user.getId(), user.getUsername(), participantDTOs, eventDTOs);
+        return new UserDTO(user.getId(), user.getUsername(), participationDTOs, eventDTOs);
     }
 }

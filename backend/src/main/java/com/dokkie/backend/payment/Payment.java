@@ -1,7 +1,7 @@
 package com.dokkie.backend.payment;
 
 import com.dokkie.backend.event.Event;
-import com.dokkie.backend.participant.Participant;
+import com.dokkie.backend.user.User;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -13,8 +13,8 @@ public class Payment {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "participant_id")
-    private Participant participant;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "event_id")
@@ -34,12 +34,12 @@ public class Payment {
         return id;
     }
 
-    public Participant getParticipant() {
-        return participant;
+    public User getUser() {
+        return user;
     }
 
-    public void setParticipant(Participant participant) {
-        this.participant = participant;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Event getEvent() {
