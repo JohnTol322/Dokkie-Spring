@@ -17,26 +17,51 @@ public class EventFixture {
     }
 
     public void loadEvents() {
-        this.createEvent("LAN party", 1L, Arrays.asList(1L, 3L, 4L));
-        this.createEvent("Bowling party", 1L, Arrays.asList(2L, 3L, 5L));
-        this.createEvent("Mario kart tournament", 2L, Arrays.asList(1L, 3L, 4L, 6L));
-        this.createEvent("High-school reunion", 3L, Arrays.asList(1L, 3L, 4L));
-        this.createEvent("Birthday party", 3L, Arrays.asList(1L, 2L, 3L, 4L, 5L, 6L));
-        this.createEvent("Paintball", 4L, Arrays.asList(1L, 3L, 4L, 6L));
-        this.createEvent("Cinema", 4L, Arrays.asList(1L, 4L));
-        this.createEvent("Halloween party", 5L, Arrays.asList(1L, 2L, 3L, 4L));
-        this.createEvent("Football night", 5L, Arrays.asList(2L, 3L));
-        this.createEvent("Saturday night in bar", 6L, Arrays.asList(1L, 2L, 5L));
+        this.eventRepository.deleteAll();
+
+        Iterable<User> users = this.userRepository.findAll();
+
+        List<User> userList = new ArrayList<>();
+        users.forEach(userList::add);
+
+        this.createEvent("LAN party", this.getRandomUser(userList), this.getRandomUserList(userList, 4));
+        this.createEvent("Bowling party", this.getRandomUser(userList), this.getRandomUserList(userList, 3));
+        this.createEvent("Mario kart tournament", this.getRandomUser(userList), this.getRandomUserList(userList, 4));
+        this.createEvent("High-school reunion", this.getRandomUser(userList), this.getRandomUserList(userList, 3));
+        this.createEvent("Birthday party", this.getRandomUser(userList), this.getRandomUserList(userList, 6));
+        this.createEvent("Paintball", this.getRandomUser(userList), this.getRandomUserList(userList, 2));
+        this.createEvent("Cinema", this.getRandomUser(userList), this.getRandomUserList(userList, 2));
+        this.createEvent("Halloween party", this.getRandomUser(userList), this.getRandomUserList(userList, 5));
+        this.createEvent("Football night", this.getRandomUser(userList), this.getRandomUserList(userList, 3));
+        this.createEvent("Saturday night in bar", this.getRandomUser(userList), this.getRandomUserList(userList, 4));
     }
 
-    private void createEvent(String description, Long creatorId, List<Long> participantIds) {
+    private void createEvent(String description, User creator, List<User> participants) {
         Event event = new Event();
         event.setDescription(description);
         event.setActive(true);
         event.setCreatedOn(new Date());
-        event.setUser(this.userRepository.findById(creatorId).orElse(null));
-        List<Optional<User>> participants = participantIds.stream().map(this.userRepository::findById).toList();
-        participants.forEach(participant -> participant.ifPresent(event::addParticipant));
+        event.setUser(creator);
+        participants.forEach(event::addParticipant);
         this.eventRepository.save(event);
+    }
+
+    private User getRandomUser(List<User> userPool) {
+
+
+        return userPool.get(new Random().nextInt(userPool.size()));
+    }
+
+    private List<User> getRandomUserList(List<User> userPool, int count) {
+        if (count > userPool.size()) {
+            count = userPool.size();
+        }
+
+        List<User> result = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            result.add(userPool.get(new Random().nextInt(count)));
+        }
+
+        return result;
     }
 }
