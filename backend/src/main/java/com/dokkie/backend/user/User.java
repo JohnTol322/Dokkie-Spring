@@ -3,6 +3,7 @@ package com.dokkie.backend.user;
 import com.dokkie.backend.event.Event;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,11 @@ public class User {
 
     private String username;
     private String password;
+
+    public User() {
+        this.events = new ArrayList<>();
+        this.participations = new ArrayList<>();
+    }
 
     public void setId(Long id) {
         this.id = id;

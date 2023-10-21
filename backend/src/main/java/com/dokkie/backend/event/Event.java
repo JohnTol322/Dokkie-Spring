@@ -4,6 +4,7 @@ import com.dokkie.backend.payment.Payment;
 import com.dokkie.backend.user.User;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,12 @@ public class Event {
     private String description;
     private Date createdOn = new Date();
     private boolean active = true;
+
+    public Event() {
+        this.user = null;
+        this.participants = new ArrayList<>();
+        this.payments = new ArrayList<>();
+    }
 
     public void setId(Long id) {
         this.id = id;
