@@ -15,7 +15,7 @@ public class PaymentController {
     }
 
     @PostMapping
-    public PaymentDTO createPaymentAction(@RequestBody PaymentCreationDTO payment) {
+    public PaymentDTO createPaymentAction(@ModelAttribute PaymentCreationDTO payment) {
         return this.paymentService.createPayment(payment);
     }
 

@@ -37,4 +37,12 @@ public class PageController {
         model.addAttribute("event", event);
         return "event/event_details";
     }
+
+    @GetMapping("/payment/{id}/create")
+    public String createPayment(Model model, @PathVariable("id") Long id) {
+        EventDTO event = this.eventService.getEvent(id);
+
+        model.addAttribute("event", event);
+        return "payment/create_payment";
+    }
 }
