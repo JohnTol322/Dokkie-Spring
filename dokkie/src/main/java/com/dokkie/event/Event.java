@@ -25,7 +25,7 @@ public class Event {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> participants;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "event_id")
     private List<Payment> payments;
 

@@ -12,6 +12,8 @@ public class UserFixture {
     }
 
     public void loadUsers() {
+        this.userRepository.deleteAll();
+
         this.createUser("Joopie21");
         this.createUser("Jantje00");
         this.createUser("Jaap4");

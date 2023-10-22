@@ -47,8 +47,6 @@ public class EventFixture {
     }
 
     private User getRandomUser(List<User> userPool) {
-
-
         return userPool.get(new Random().nextInt(userPool.size()));
     }
 
