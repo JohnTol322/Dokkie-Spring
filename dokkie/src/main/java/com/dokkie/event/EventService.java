@@ -1,5 +1,6 @@
 package com.dokkie.event;
 
+import com.dokkie.payment.PaymentDTO;
 import com.dokkie.user.User;
 import com.dokkie.user.UserDTO;
 import com.dokkie.user.UserRepository;
@@ -49,10 +50,14 @@ public class EventService {
 
     public static EventDTO convertToDTO(Event event) {
         List<UserDTO> participantDTOs = event.getParticipants().stream()
-                .map(participant -> new UserDTO(participant.getId(), participant.getUsername(), null, null))
+                .map(participant -> new UserDTO(participant.getId(), participant.getUsername(), null, null, null))
                 .toList();
-        UserDTO userDTO = new UserDTO(event.getUser().getId(), event.getUser().getUsername(), null, null);
+        List<PaymentDTO> paymentDTOS = event.getPayments().stream()
+                .map(payment -> new PaymentDTO(payment.getId(), payment.getDescription(), payment.getAmount(), payment.getCreatedOn(),
+                        new UserDTO(payment.getUser().getId(), payment.getUser().getUsername(), null, null, null), null))
+                .toList();
+        UserDTO userDTO = new UserDTO(event.getUser().getId(), event.getUser().getUsername(), null, null, null);
 
-        return new EventDTO(event.getId(), event.getDescription(), event.getCreatedOn(), participantDTOs, userDTO);
+        return new EventDTO(event.getId(), event.getDescription(), event.getCreatedOn(), participantDTOs, paymentDTOS, userDTO);
     }
 }

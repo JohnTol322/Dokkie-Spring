@@ -1,6 +1,7 @@
 package com.dokkie.user;
 
 import com.dokkie.event.Event;
+import com.dokkie.payment.Payment;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.REMOVE, mappedBy = "participants")
     private List<Event> participations;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "user_id")
+    private List<Payment> payments;
 
     private String username;
     private String password;
@@ -55,6 +60,19 @@ public class User {
     public void addParticipations(Event participation) {
         if (!this.participations.contains(participation)) {
             this.participations.add(participation);
+        }
+    }
+
+    public void removePayment(Payment payment) {
+        this.payments.remove(payment);
+    }
+    public List<Payment> getPayments() {
+        return this.payments;
+    }
+
+    public void addPayment(Payment payment) {
+        if (!this.payments.contains(payment)) {
+            this.payments.add(payment);
         }
     }
 

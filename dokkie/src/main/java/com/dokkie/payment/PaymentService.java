@@ -52,9 +52,9 @@ public class PaymentService {
     }
 
     public static PaymentDTO convertToDTO(Payment payment) {
-        UserDTO userDTO = new UserDTO(payment.getUser().getId(), payment.getUser().getUsername(), null, null);
-        EventDTO eventDTO = new EventDTO(payment.getEvent().getId(), payment.getEvent().getDescription(), payment.getEvent().getCreatedOn(), null, null);
+        UserDTO userDTO = new UserDTO(payment.getUser().getId(), payment.getUser().getUsername(), null, null, null);
+        EventDTO eventDTO = new EventDTO(payment.getEvent().getId(), payment.getEvent().getDescription(), payment.getEvent().getCreatedOn(), null, null, null);
 
-        return new PaymentDTO(payment.getId(), payment.getDescription(), payment.getAmount(), userDTO, eventDTO);
+        return new PaymentDTO(payment.getId(), payment.getDescription(), payment.getAmount(), payment.getCreatedOn(), userDTO, eventDTO);
     }
 }
