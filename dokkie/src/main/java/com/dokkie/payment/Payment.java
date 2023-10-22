@@ -24,7 +24,7 @@ public class Payment {
 
     private String description;
 
-    private float amount;
+    private double amount;
 
     public void setId(Long id) {
         this.id = id;
@@ -66,11 +66,11 @@ public class Payment {
         this.description = description;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 }
